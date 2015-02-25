@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>est.spring.jaxb.client</groupId>
+	<artifactId>person-data-client</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-ws-core</artifactId>
+			<version>2.2.0.RELEASE</version>
+		</dependency>
+		<!-- Update dependencies log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Update dependencies for test classes -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>4.0.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-ws-test</artifactId>
+			<version>2.2.0.RELEASE</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jvnet.jaxb2.maven2</groupId>
+				<artifactId>maven-jaxb2-plugin</artifactId>
+				<version>0.8.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<!-- generate class by pointing to WSDL URL -->
+				<!--
+				<configuration>
+					<schemaLanguage>WSDL</schemaLanguage>
+					<generatePackage>lk.estudents.schemas.xsd.persondata</generatePackage>
+					<forceRegenerate>true</forceRegenerate>
+					<schemas>
+						<schema>
+							<url>http://localhost:8080/person-data-simple/services/PersonDataService/PersonDataServiceDefinition.wsdl</url>
+						</schema>
+					</schemas>
+				</configuration>
+				-->
+				<!-- generate class by pointing to WSDL or XSD file -->
+				<configuration>
+					<generatePackage>lk.estudents.schemas.xsd.persondata</generatePackage>
+					<generateDirectory>${project.build.directory}/generated-sources/persondata</generateDirectory>
+					<schemaDirectory>${basedir}/src/main/resources/config/schemas</schemaDirectory>
+					<schemaIncludes>
+						<include>person-data.xsd</include>
+					</schemaIncludes>
+					<verbose>false</verbose>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

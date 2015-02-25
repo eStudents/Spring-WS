@@ -1,0 +1,25 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:sws="http://www.springframework.org/schema/web-services"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+  http://www.springframework.org/schema/web-services http://www.springframework.org/schema/web-services/web-services-2.0.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<import resource="classpath:config/spring/test-property-configurer.xml"/>
+	<import resource="classpath:config/spring/test-person-data-client-oxm-context.xml"/>
+		
+	<context:component-scan base-package="lk.estudents"/>
+	
+	<bean id="webServiceClient" class="lk.estudents.pesrsondata.client.template.WebServiceClient">
+        <property name="defaultUri" value="http://localhost:8080/person-data-simple/services/PersonDataService/PersonDataServiceDefinition.wsdl"/>
+    </bean>
+    <!-- WebService Template without WS security-->
+    
+    <bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
+        <property name="marshaller" ref="marshaller"/>
+        <property name="unmarshaller" ref="marshaller"/>
+        <property name="defaultUri" value="${person.data.ws.endpoint}"/>
+        <!-- <property name="defaultUri" value="http://localhost:8080/person-data-simple/services/PersonDataService/PersonDataServiceDefinition.wsdl"/>-->
+    </bean>
+    
+</beans>

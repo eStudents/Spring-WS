@@ -1,0 +1,9 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+	<SOAP-ENV:Header />
+	<SOAP-ENV:Body>
+		<per:PersonDataRequest xmlns:per="http://schemas.estudents.lk/xsd/persondata">
+			<per:identificationNumber>1234567890v</per:identificationNumber>
+		</per:PersonDataRequest>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
