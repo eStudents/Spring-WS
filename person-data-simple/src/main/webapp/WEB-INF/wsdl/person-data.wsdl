@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="PersonDataService" targetNamespace="http://schemas.estudents.lk/xsd/persondata" xmlns:ns="http://schemas.estudents.lk/xsd/persondata" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://schemas.estudents.lk/xsd/persondata">
+			
+			<xs:element name="PersonDataRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<!-- sensitive fields as an example-->
+						<xs:element name="identificationNumber" type="xs:string" minOccurs="1" maxOccurs="1" nillable="false"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="PersonDataResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<!-- sensitive fields as an example-->
+						<xs:element name="fullName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="dateOfBirth" type="xs:date" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="phoneNumber" type="xs:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+						<!-- non-sensitive fields as an example-->
+						<xs:element name="age" type="xs:int" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="gender" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="PersonDatFault" type="ns:PersonDatFaultType"/>
+			
+			<xs:complexType name="PersonDatFaultType">
+				<xs:sequence>
+					<xs:element name="faultCause" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:element name="InvalidIdentificationNumberFault" type="ns:InvalidIdentificationNumberFaultType"/>
+
+			<xs:complexType name="InvalidIdentificationNumberFaultType">
+				<xs:complexContent>
+					<xs:extension base="ns:PersonDatFaultType"/>
+				</xs:complexContent>
+			</xs:complexType>
+			
+		</xs:schema>
+  </wsdl:types>
+  
+  <wsdl:message name="PersonDataRequest">
+    <wsdl:part name="PersonDataRequest" element="ns:PersonDataRequest">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="PersonDataResponse">
+    <wsdl:part name="PersonDataResponse" element="ns:PersonDataResponse">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="InvalidIdentificationNumberFault">
+    <wsdl:part name="InvalidIdentificationNumberFault" element="ns:InvalidIdentificationNumberFault">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:portType name="PersonDataHandlerServicePortType">
+    <wsdl:operation name="getPersonData">
+      <wsdl:input message="ns:PersonDataRequest">
+    </wsdl:input>
+      <wsdl:output message="ns:PersonDataResponse">
+    </wsdl:output>
+      <wsdl:fault name="InvalidIdentificationNumberFault" message="ns:InvalidIdentificationNumberFault">
+    </wsdl:fault>
+  </wsdl:operation>
+  </wsdl:portType>
+  
+  <wsdl:binding name="PersonDataHandlerServiceSoap12Binding" type="ns:PersonDataHandlerServicePortType">
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getPersonData">
+      <soap12:operation soapAction="urn:getTransactionData" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="InvalidIdentificationNumberFault">
+        <soap:fault name="InvalidIdentificationNumberFault" use="literal"/>
+      </wsdl:fault>
+   </wsdl:operation>
+  </wsdl:binding>
+  
+  <wsdl:binding name="PersonDataHandlerServiceSoap11Binding" type="ns:PersonDataHandlerServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getPersonData">
+      <soap:operation soapAction="urn:getPersonData" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="InvalidIdentificationNumberFault">
+        <soap:fault name="InvalidIdentificationNumberFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PersonDataService">
+    <wsdl:port name="PersonDataHandlerServiceHttpSoap11Endpoint" binding="ns:PersonDataHandlerServiceSoap11Binding">
+      <soap:address location="http://localhost:8080/PersonData/services/PersonDataHandlerService.PersonDataHandlerServiceHttpSoap11Endpoint/"/>
+    </wsdl:port>
+    <wsdl:port name="PersonDataHandlerServiceHttpSoap12Endpoint" binding="ns:PersonDataHandlerServiceSoap12Binding">
+      <soap12:address location="http://localhost:8080/PersonData/services/PersonDataHandlerService.PersonDataHandlerServiceHttpSoap12Endpoint/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
