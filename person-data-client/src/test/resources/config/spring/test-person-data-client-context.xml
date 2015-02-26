@@ -17,7 +17,7 @@
     
     <bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
         <property name="marshaller" ref="marshaller"/>
-        <property name="unmarshaller" ref="marshaller"/>
+        <property name="unmarshaller" ref="unmarshaller"/>
         <property name="defaultUri" value="${person.data.ws.endpoint}"/>
         <!-- <property name="defaultUri" value="http://localhost:8080/person-data-simple/services/PersonDataService/PersonDataServiceDefinition.wsdl"/>-->
     </bean>
