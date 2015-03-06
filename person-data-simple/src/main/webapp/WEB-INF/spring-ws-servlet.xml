@@ -5,8 +5,10 @@
   http://www.springframework.org/schema/web-services http://www.springframework.org/schema/web-services/web-services-2.0.xsd
   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+	<!-- Scans the classpath for annotated components that will be auto-registered as Spring beans.-->
 	<context:component-scan base-package="lk.estudents" />
 
+	<!-- Enables @Endpoint and related Spring-WS annotations.-->
 	<sws:annotation-driven />
 
 	<!-- static WSDl publishing : un-comment the below line -->
